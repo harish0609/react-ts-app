@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./loginpage.scss"
 
 const LoginPage = () => {
