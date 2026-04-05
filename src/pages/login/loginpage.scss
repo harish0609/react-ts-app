@@ -1,67 +1,110 @@
-.login-container {
+.login-wrapper {
   min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  justify-content: center;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.login-card {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 12px;
+.login-box {
   width: 100%;
-  max-width: 380px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
+  max-width: 400px;
+  padding: 2.5rem;
+  border-radius: 16px;
 
-.title {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  color: #fff;
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+  }
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-
-  label {
-    margin-bottom: 0.3rem;
-    font-size: 0.9rem;
-  }
+/* Floating input */
+.input-group {
+  position: relative;
 
   input {
-    padding: 0.6rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    width: 100%;
+    padding: 0.8rem 0.7rem;
+    border: none;
+    border-radius: 8px;
     outline: none;
-    transition: 0.2s;
 
-    &:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+  }
+
+  label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 0.85rem;
+    pointer-events: none;
+    transition: 0.2s;
+    opacity: 0.7;
+  }
+
+  input:focus + label,
+  input:valid + label {
+    top: -8px;
+    font-size: 0.7rem;
+    opacity: 1;
+  }
+}
+
+/* Options row */
+.options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+
+  input {
+    margin-right: 5px;
+  }
+
+  .forgot {
+    cursor: pointer;
+    opacity: 0.8;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 }
 
-.login-btn {
-  margin-top: 0.5rem;
-  padding: 0.7rem;
+/* Button */
+button {
+  padding: 0.8rem;
   border: none;
-  border-radius: 6px;
-  background: #667eea;
-  color: white;
-  font-weight: 500;
+  border-radius: 8px;
+  background: #fff;
+  color: #2a5298;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.3s;
 
   &:hover {
-    background: #5a67d8;
+    background: #f1f1f1;
+    transform: translateY(-1px);
   }
 }
