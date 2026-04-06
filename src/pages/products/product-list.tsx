@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import "./product-list.scss"
 import { useDispatch, useSelector } from 'react-redux';
 import { productActions } from './product-action';
@@ -39,9 +39,16 @@ function ProductList(props: any) {
         });
     }
     
-    let slowFn = useCallback(debounce((v: any) => {
-        getProductsSearch(v)
-    }, 500), [])
+    const debouncedRef = useRef(
+        debounce((v: any) => {
+            getProductsSearch(v);
+        }, 500)
+    );
+
+    const slowFn = useCallback((v: any) => {
+        debouncedRef.current(v);
+    }, []);
+
     function onChange(v: string) {
         setQuery(v);
         slowFn(v);
