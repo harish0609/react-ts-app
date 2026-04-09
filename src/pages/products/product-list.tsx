@@ -3,6 +3,7 @@ import "./product-list.scss"
 import { useDispatch, useSelector } from 'react-redux';
 import { productActions } from './product-action';
 import { IState } from '../redux/state-interface';
+import Dialog from '../components/dialog';
 
 
 function ProductList(props: any) {
@@ -11,6 +12,7 @@ function ProductList(props: any) {
     const [query, setQuery] = useState("");
     // const [cart, setCart]: any = useState([]);
     const [showCart, setShowCart]: any = useState(false);
+    const [open, setOpen]: any = useState(false);
 
     const dispatch = useDispatch();
     const { cartArr  } = useSelector((state: IState) => state.productReducer);
@@ -73,6 +75,24 @@ function ProductList(props: any) {
                 </div>
                 
             </div>
+            <button onClick={() => setOpen(true)}>Open Dialog</button>
+
+            <Dialog
+                open={open}
+                onClose={() => setOpen(false)}
+                title="Cart Details"
+                width="600px"
+                height="100%"
+                footer={
+                <>
+                    <button onClick={() => setOpen(false)}>Cancel</button>
+                    <button>Proceed To Payment</button>
+                </>
+                }
+            >
+                <p>This is dynamic dialog content</p>
+                <p>You can pass anything here</p>
+            </Dialog>
             {showCart ?   <div className='product-container'>
                 <h1>Cart Details</h1>
                 {cartArr.map((product: any) => {
@@ -87,26 +107,53 @@ function ProductList(props: any) {
                         </div>
                     </div>;
                 })}
-            </div> : <div className='product-container'>
+            </div> : <div className="product-container">
                 {products.map((product: any) => {
-                    return <div key={product.id} className='product-item'>
-                        <div className='product-inner'>
-                            <div>
-                                <img src={product.thumbnail} alt='Product-image' className='product-image' />
-                            </div>
-                            <div>
-                                {product.title}
-                            </div>
-                            <div>
-                                <button onClick={() => {
-                                    // setCart([...cart, product])
-                                    dispatch(productActions.addcart(product))
-                                }}>Add To Cart</button>
-                            </div>
+                    return (
+                    <div key={product.id} className="product-card">
+                        
+                        {/* Badge */}
+                        {product.discountPercentage && (
+                        <span className="product-badge">
+                            {Math.round(product.discountPercentage)}% OFF
+                        </span>
+                        )}
+
+                        {/* Image */}
+                        <div className="product-image-wrapper">
+                        <img
+                            src={product.thumbnail}
+                            alt={product.title}
+                            className="product-image"
+                        />
                         </div>
-                    </div>;
+
+                        {/* Info */}
+                        <div className="product-info">
+                        <h3 className="product-title">{product.title}</h3>
+
+                        {/* Rating */}
+                        <div className="product-rating">
+                            ⭐ {product.rating} / 5
+                        </div>
+
+                        {/* Price */}
+                        <div className="product-price">
+                            ₹{product.price}
+                        </div>
+
+                        {/* Button */}
+                        <button
+                            className="add-to-cart-btn"
+                            onClick={() => dispatch(productActions.addcart(product))}
+                        >
+                            Add to Cart
+                        </button>
+                        </div>
+                    </div>
+                    );
                 })}
-            </div>}
+                </div>}
         </div>
     )
 }
